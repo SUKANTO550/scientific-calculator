@@ -2,14 +2,14 @@
 
 A free, offline scientific calculator for Android, with symbolic calculus powered by SymPy.
 
-**Version 1.4**
+**Version 1.4.1**
 
 ## Download
 
 Get the latest APK from the [Releases](../../releases) page.
 
 To install:
-1. Download `ScientificCalculator-1.4.apk` on your Android phone.
+1. Download `ScientificCalculator-1.4.1.apk` on your Android phone.
 2. Open the file. If asked, allow installs from your browser or file manager.
 3. Tap **Install**.
 
