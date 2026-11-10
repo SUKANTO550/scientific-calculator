@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dark">#171a22</color>
+    <color name="ic_background">#1c222c</color>
+    <color name="ic_accent">#e8b646</color>
+    <color name="ic_lcd">#cad7cc</color>
+</resources>
+

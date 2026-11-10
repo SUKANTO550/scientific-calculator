@@ -1,0 +1,211 @@
+/* Android Mobile Specific Styling & Enhancements */
+
+:root {
+  /* On mobile screens, fit the full viewport dynamically */
+  --sb: min(calc(100vw / 845), calc(100vh / 1870));
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  background: radial-gradient(circle at 30% 20%, #2b3140, #13161c 70%);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+}
+
+/* Ensure buttons respond instantly without tap delay */
+button, .pad-btn {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+  touch-action: manipulation !important;
+}
+
+/* Key labels clickable */
+.key {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.key .labels {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Result line clickable for copying */
+#result {
+  cursor: pointer;
+}
+
+#result:active {
+  opacity: 0.7;
+}
+
+/* Clickable Menu Icons in LCD grid */
+.mi {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  user-select: none;
+  transition: transform 0.05s ease;
+}
+
+.mi:hover {
+  outline: 1px solid var(--lcd-ink);
+}
+
+.mi:active {
+  background: var(--lcd-ink) !important;
+  color: var(--lcd-1) !important;
+  transform: scale(0.95);
+}
+
+.mi:active .n {
+  background: var(--lcd-1) !important;
+  color: var(--lcd-ink) !important;
+}
+
+.menu-label {
+  cursor: pointer !important;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.menu-label:active {
+  opacity: 0.75;
+}
+
+.menu-label .arr b {
+  display: inline-block;
+  padding: 0 calc(6 * var(--s));
+  cursor: pointer !important;
+  border-radius: 2px;
+}
+
+.menu-label .arr b:active {
+  background: var(--lcd-ink);
+  color: var(--lcd-1);
+}
+
+/* Setup, Option Lists, and Message Clickables */
+.ln-clickable, .gl-clickable, .msg-btn, .c-btn {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  user-select: none;
+  border-radius: 2px;
+}
+
+.ln-clickable:active, .gl-clickable:active, .msg-btn:active, .c-btn:active {
+  background: var(--lcd-ink) !important;
+  color: var(--lcd-1) !important;
+}
+
+.panel .sb {
+  cursor: pointer !important;
+}
+
+/* Tooltip / Toast */
+.copied-toast {
+  position: fixed;
+  bottom: calc(50 * var(--s));
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 18, 0.92);
+  color: #dfe7dc;
+  font-family: "Share Tech Mono", monospace;
+  font-size: calc(24 * var(--s));
+  padding: calc(10 * var(--s)) calc(24 * var(--s));
+  border-radius: calc(20 * var(--s));
+  border: 1px solid #7a8ca6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.copied-toast.show {
+  opacity: 1;
+}
+
+/* =========================================================
+   Full-screen calculator: the body fills the whole window.
+   Sizes still come from --sb (uniform, so text stays crisp);
+   extra width widens the keys, extra height spreads the rows.
+   ========================================================= */
+.calc {
+  /* fill the window but leave room for the outer rim rings (9) and the body
+     thickness under the chin (24), so the real calculator shape is kept */
+  width: calc(100% - 24 * var(--sb));
+  height: calc(100% - 52 * var(--sb));
+  margin: calc(14 * var(--sb)) calc(12 * var(--sb)) calc(38 * var(--sb));
+  display: flex;
+  flex-direction: column;
+  /* bottom padding = the chin below the keys */
+  padding: 0 calc(46 * var(--sb)) calc(66 * var(--sb));
+}
+.lcd-frame { flex: none; margin-top: calc(34 * var(--sb)); }
+.top-controls { flex: 1 0 auto; align-content: center; margin-top: calc(24 * var(--sb)); }
+.fn-grid { flex: 2 0 auto; align-content: space-evenly; margin-top: 0; }
+.num-grid { flex: 3 0 auto; align-content: space-evenly; margin-top: 0; }
+
+/* key / label text: same fonts, weights and colours as the web version */
+
+/* crisp key lettering in WebView:
+   - per-key GPU layers can sit on fractional pixels and get resampled (blurry text),
+     so keys are painted normally here (the d-pad / LCD layers stay)
+   - thinner, lighter outline so it no longer clogs the bolder letters */
+.fn-btn, .num-btn, .round { will-change: auto; }
+.fn-btn, .num-btn {
+  -webkit-text-stroke-width: calc(1.6 * var(--sb));
+  --ink: #5a6880;
+  text-rendering: geometricPrecision;
+}
+.num-btn { --ink: #55637b; }
+.num-btn.tan { -webkit-text-stroke: 0; }
+
+/* tap target for the layout toggle (angle indicator "D", top right of the display) */
+#ind-angle { position: relative; cursor: pointer; }
+#ind-angle::after { content: ""; position: absolute; inset: -10px -10px -10px -14px; }
+
+/* "web dimensions" layout: undo the full-screen rules, same shape and spacing as the web page */
+.webdim .calc {
+  width: calc(845 * var(--s));
+  height: calc(1870 * var(--s));
+  margin: calc(9 * var(--s)) calc(9 * var(--s)) calc(33 * var(--s));
+  display: block;
+  padding: 0 calc(52 * var(--s));
+}
+.webdim .lcd-frame { margin-top: calc(66 * var(--sb)); }
+.webdim .top-controls { margin-top: calc(65 * var(--s)); }
+.webdim .fn-grid { margin-top: calc(8 * var(--s)); }
+.webdim .num-grid { margin-top: calc(18 * var(--s)); }
+
+/* very bold key lettering (700 = heaviest bundled Saira weight) */
+.fn-btn, .num-btn, .num-btn.tan, .num-btn.small { font-weight: 700; }
+.opr { font-weight: 700; }
+
+/* yellow / red body labels */
+/* no outline on the label text */
+.labels .s, .labels .a { -webkit-text-stroke: 0; paint-order: normal; }
+/* symbol labels (π, e, %, ≈, =, :) same size as the word labels */
+.labels .one { font-size: 1em; line-height: 1; }
+/* superscripts and template boxes (e^■, 10^■, x³, ³√■, d/dx■, Σ■) kept inside the label row */
+.labels sup { font-size: .62em; line-height: 0; vertical-align: .45em; }
+.labels .sq { width: .55em; height: .55em; margin-left: .06em; }
+.labels sup .sq { width: .8em; height: .8em; }
+.labels .bx { width: .55em; height: .65em; }
+.labels .tf { font-size: .55em; }
+.labels .rt { line-height: 1; }

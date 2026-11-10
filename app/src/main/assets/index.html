@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Scientific Calculator</title>
+  <link rel="stylesheet" href="fonts.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="modes/modes.css" />
+  <link rel="stylesheet" href="calculus/calculus.css" />
+  <link rel="stylesheet" href="android.css" />
+</head>
+<body>
+  <main class="calc" id="calc">
+
+    <!-- Display -->
+    <section class="lcd-frame">
+      <div class="lcd">
+        <div class="indicators">
+          <span id="ind-S" class="ind">S</span>
+          <span id="ind-A" class="ind">A</span>
+          <span id="ind-M" class="ind">M</span>
+          <span id="ind-STO" class="ind">STO</span>
+          <span id="ind-FMT" class="ind">FIX</span>
+          <span id="ind-E" class="ind">E</span>
+          <span id="ind-APP" class="ind app"></span>
+          <span id="ind-DISP" class="ind">Disp</span>
+          <span id="ind-HIST" class="ind hist"></span>
+          <span id="ind-MATH" class="ind math">√<b class="mbox"></b>/</span>
+          <span id="ind-angle" class="ind on angle">D</span>
+        </div>
+        <div class="input-line" id="input"></div>
+        <div class="result-line" id="result"></div>
+        <div class="panel" id="panel"></div>
+      </div>
+    </section>
+
+    <!-- Top controls (shift/alpha, d-pad, menu/on) -->
+    <section class="top-controls" id="top"></section>
+
+    <!-- Function keys -->
+    <section class="fn-grid" id="fn"></section>
+
+    <!-- Number keys -->
+    <section class="num-grid" id="num"></section>
+  </main>
+
+  <script src="engine.js"></script>
+  <script src="screens.js"></script>
+  <script src="modes/equation.js"></script>
+  <script src="modes/stats.js"></script>
+  <script src="modes/table.js"></script>
+  <script src="modes/matvec.js"></script>
+  <script src="modes/complex.js"></script>
+  <script src="modes/series.js"></script>
+  <script src="modes/algebra.js"></script>
+  <script src="script.js"></script>
+  <!-- Indefinite calculus: JS engine + UI. SymPy (calculus/pyodide/) loads only when an integral needs it. -->
+  <script src="calculus/cas.js"></script>
+  <script src="calculus/cas-ui.js"></script>
+  <script src="android.js"></script>
+</body>
+</html>
+
